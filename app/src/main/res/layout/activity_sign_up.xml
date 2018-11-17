@@ -66,6 +66,20 @@
                 android:textSize="15dp" />
 
 
+
+            <EditText
+                android:id="@+id/cpasswordf"
+                android:layout_width="280dp"
+                android:layout_height="46dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittextstyle"
+                android:hint="Confirm Password"
+                android:inputType="textPassword"
+                android:textColor="@android:color/black"
+                android:textSize="15dp" />
+
+
             <Button
                 android:layout_marginTop="20dp"
                 android:textColor="@android:color/white"

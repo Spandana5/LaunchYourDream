@@ -6,9 +6,11 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -34,7 +36,11 @@ public class LogInActivity extends AppCompatActivity {
 
     private static final String TAG = "LogInActivity";
 
-    private Button btnSignUp;
+    private Button SignUp;
+
+    private Button LogIn;
+
+    private EditText UserEmail, UserPassword;
 
     private SignInButton mGoogleBtn;
 
@@ -48,6 +54,18 @@ public class LogInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
+
+        UserEmail = (EditText)findViewById(R.id.lemail);
+        UserPassword = (EditText)findViewById(R.id.lpassword);
+        LogIn = (Button)findViewById(R.id.btnLogIn);
+
+        LogIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AllowUserToLogin();
+                
+            }
+        });
 
     progressBar = new ProgressDialog(this);
 
@@ -63,9 +81,8 @@ public class LogInActivity extends AppCompatActivity {
             }
         };
 
-
-        btnSignUp=findViewById(R.id.btnSignUp);
-        btnSignUp.setOnClickListener(new View.OnClickListener() {
+        SignUp=findViewById(R.id.btnSignUp);
+        SignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 moveToActivityTwo();
@@ -95,6 +112,51 @@ public class LogInActivity extends AppCompatActivity {
 
 
     }
+
+    private void AllowUserToLogin() {
+
+        String email = UserEmail.getText().toString();
+        String password = UserPassword.getText().toString();
+
+        if(TextUtils.isEmpty(email)) {
+            Toast.makeText(this,"Enter the email",Toast.LENGTH_LONG).show();
+
+        }
+        else if(TextUtils.isEmpty(password)) {
+            Toast.makeText(this,"Enter the password",Toast.LENGTH_LONG).show();
+        }
+        else {
+            progressBar.setTitle("Logging in ");
+            progressBar.setMessage("Please wait while you are logging in");
+            progressBar.show();
+            progressBar.setCanceledOnTouchOutside(true);
+            mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if(task.isSuccessful()) {
+
+                        SendUserToDrawer();
+
+                        Toast.makeText(LogInActivity.this,"Log in success",Toast.LENGTH_LONG).show();
+                        progressBar.dismiss();
+                    }
+                    else {
+                        String message = task.getException().getMessage();
+                        Toast.makeText(LogInActivity.this,"Error occured : "+ message,Toast.LENGTH_LONG).show();
+                        progressBar.dismiss();
+                    }
+                }
+            });
+        }
+    }
+
+    private void SendUserToDrawer() {
+        Intent ten = new Intent(LogInActivity.this,DrawerActivity.class);
+        ten.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(ten);
+        finish();
+    }
+
 
     @Override
     protected void onStart() {
@@ -138,7 +200,7 @@ public class LogInActivity extends AppCompatActivity {
                             progressBar.dismiss();
                             // Sign in success, update UI with the signed-in user's information
                             Toast.makeText(LogInActivity.this,"Sign in success", Toast.LENGTH_LONG).show();
-                            Log.d(TAG, "signInWithCredential:success");
+                            Log.d   (TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
 

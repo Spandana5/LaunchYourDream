@@ -32,7 +32,7 @@
 
 
             <EditText
-                android:id="@+id/emailf"
+                android:id="@+id/lemail"
                 android:layout_width="280dp"
                 android:layout_height="46dp"
                 android:layout_gravity="center_horizontal"
@@ -44,7 +44,7 @@
                 android:textSize="15dp" />
 
             <EditText
-                android:id="@+id/passwordf"
+                android:id="@+id/lpassword"
                 android:layout_width="280dp"
                 android:layout_height="46dp"
                 android:layout_gravity="center_horizontal"

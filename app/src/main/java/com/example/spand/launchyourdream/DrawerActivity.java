@@ -1,5 +1,6 @@
 package com.example.spand.launchyourdream;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -9,15 +10,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class DrawerActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
 
+    private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawer);
+
+        mAuth = FirebaseAuth.getInstance();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -30,6 +38,24 @@ public class DrawerActivity extends AppCompatActivity implements NavigationView.
 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser == null) {
+            SendUserToLogInActivity();
+        }
+    }
+
+    private void SendUserToLogInActivity() {
+
+        Intent logintent = new Intent(DrawerActivity.this,LogInActivity.class);
+        logintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(logintent);
+        finish();
     }
 
     @Override
@@ -63,6 +89,9 @@ public class DrawerActivity extends AppCompatActivity implements NavigationView.
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FeedbackFragment()).commit();
                 break;
 
+            case R.id.nav_logout:
+                 mAuth.signOut();
+                 SendUserToLogInActivity();
         }
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
