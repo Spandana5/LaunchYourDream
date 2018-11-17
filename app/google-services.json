@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "98577226952",
+    "firebase_url": "https://launchyourdream-8dd07.firebaseio.com",
+    "project_id": "launchyourdream-8dd07",
+    "storage_bucket": "launchyourdream-8dd07.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:98577226952:android:0f0dcc5c0387a3bc",
+        "android_client_info": {
+          "package_name": "com.example.spand.launchyourdream"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "98577226952-tjvfu9bg9mekjs3519j809ncgodgepf9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.spand.launchyourdream",
+            "certificate_hash": "04635a1cba2732e5d7e27dead79fa1bf150dc667"
+          }
+        },
+        {
+          "client_id": "98577226952-u816fghnmbnk1vul7orhc6va2n7i2sq8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHkMuHVI29HGaD3vtnBswx3jMxcK9VcpI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "98577226952-u816fghnmbnk1vul7orhc6va2n7i2sq8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
